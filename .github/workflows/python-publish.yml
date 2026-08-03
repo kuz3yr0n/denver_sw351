@@ -9,19 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/denver_sw351
+      url: https://pypi.org
     permissions:
       id-token: write
 
     steps:
+    # 1. Keep checkout updated to natively support newer runner environments
     - name: Checkout source code
       uses: actions/checkout@v7
 
+    # 2. FIXED: Upgraded v5 to v6 to natively run on the Node.js 24 runtime
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.13'
 
+    # 3. Rest of your steps remain intact
     - name: Install build tools
       run: |
         python -m pip install --upgrade pip
